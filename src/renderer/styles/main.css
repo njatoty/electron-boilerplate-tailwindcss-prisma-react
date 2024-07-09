@@ -1,0 +1,11 @@
+/* src/renderer/styles/main.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  h1 {
+    @apply text-4xl bg-orange-600;
+  }
+}

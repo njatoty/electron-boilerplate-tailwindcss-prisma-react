@@ -1,0 +1,3 @@
+- check monorepo approach
+- declutter dependencies
+- setup package.json
