@@ -15,6 +15,7 @@ import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import isDev from 'electron-is-dev';
+import { PosPrinter } from '@plick/electron-pos-printer';
 import fs from 'fs';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
@@ -74,17 +75,22 @@ const createWindow = async () => {
   };
 
   mainWindow = new BrowserWindow({
+    title: "Cotram colis",
     show: false,
-    width: 1024,
-    height: 728,
+    width: 1280,
+    height: 720,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true
     },
+    disableAutoHideCursor: true,
+    frame: false,
+    titleBarStyle: 'hidden'
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.on('ready-to-show', () => {
     if (!mainWindow) {
@@ -100,6 +106,11 @@ const createWindow = async () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  mainWindow.on('maximize', () => {});
+  mainWindow.on('maximize', () => {});
+
+  let printers = mainWindow.webContents.getPrinters();
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
@@ -239,4 +250,40 @@ ipcMain.on('config:get-prisma-me-path', (event) => {
 
 ipcMain.on('config:get-prisma-qe-path', (event) => {
   event.returnValue = qePath;
+});
+
+ipcMain.on('config:get-favicon-path', (event) => {
+  event.returnValue = path.join(app.getAppPath(), '../renderer/images/favicon.png');
+});
+
+// custom menu bars
+ipcMain.on('app:close', (event) => {
+  mainWindow?.close();
+});
+
+ipcMain.on('app:maximize', (event) => {
+  if (mainWindow?.isMaximized()) {
+    mainWindow.restore();
+    event.returnValue = false;
+  } else {
+    mainWindow?.maximize();
+    event.returnValue = true;
+  }
+});
+
+ipcMain.on('app:minimize', (event) => {
+  mainWindow?.minimize();
+});
+
+// on print
+ipcMain.on('print:colis', (event, data) => {
+  console.log('Printing', JSON.parse(data))
+
+  PosPrinter.print(JSON.parse(data), {
+    preview: true,
+    margin: "0",
+    boolean: true,
+    copies: 1,
+    pageSize: "80mm"
+  })
 });

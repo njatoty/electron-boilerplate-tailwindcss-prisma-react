@@ -50,7 +50,7 @@ const configuration: webpack.Configuration = {
     rules: [
       {
         test: /\.css$/,
-        include: [webpackPaths.srcRendererPath],
+        // include: [webpackPaths.srcRendererPath],
         use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {

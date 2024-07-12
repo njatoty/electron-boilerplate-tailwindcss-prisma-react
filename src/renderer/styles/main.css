@@ -1,11 +1,223 @@
-/* src/renderer/styles/main.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-@layer base {
-  h1 {
-    @apply text-4xl bg-orange-600;
-  }
+div.login-container {
+    @apply p-5 focus-within:bg-white/30 rounded-md
+    transition-all ease-linear duration-300;
+}
+
+div.login-form-group {
+    @apply rounded w-full border-2 border-warning bg-white overflow-hidden
+    flex items-center gap-1
+    focus-within:border-gold focus-within:shadow-sm focus-within:shadow-warning;
+}
+
+div.login-form-group .icon {
+    @apply flex-shrink-0 text-warning ml-4 w-4;
+    
+}
+
+input.login-input {
+    @apply p-2 outline-none w-full text-sm;
+}
+
+button.login-button {
+    @apply
+        p-2 rounded w-full outline-none bg-dark text-light
+        flex items-center justify-center gap-2 text-sm
+        hover:bg-secondary hover:text-white
+        active:scale-95 transition-all ease-linear duration-100
+        disabled:bg-secondary disabled:active:scale-100 disabled:cursor-default;
+}
+button.login-button .icon {
+    @apply w-5;
+}
+
+.setup-container {
+    background: linear-gradient(180deg, rgba(242, 242, 242, 0.99), rgba(255, 255, 255, 0.965)),  url('../images/favicon.png');
+    background-size: contain;
+    background-position: center;
+    @apply relative;
+}
+
+.setup-container::before {
+    content: '';
+    clip-path: polygon(100% 100%, 100% 0, 0 100%);
+    @apply absolute bottom-0 right-0 bg-white/80 w-full h-[36%];
+}
+.setup-container::after {
+    content: '';
+    clip-path: polygon(100% 100%, 100% 0, 0 100%);
+    @apply absolute bottom-0 right-0 bg-gold w-full h-[28%];
+}
+
+.menu-link {
+    @apply flex items-center gap-2 w-full py-2 px-4 hover:bg-secondary outline-none;
+}
+.menu-link.active {
+    @apply text-gold bg-secondary;
+}
+.menu-link.mini {
+    @apply text-sm p-3 items-center justify-center;
+}
+.menu-link .icon {
+    @apply w-5 flex-shrink-0;
+}
+
+.menu-link:not(.mini) {
+    @apply relative
+}
+
+.menu-link:not(.mini)::after {
+    @apply content-[''] absolute h-[6px] w-[6px] rounded-full bg-gray-900
+    left-1 top-1/2 -translate-y-1/2
+    ;
+}
+
+.menu-link:not(.mini)::before {
+    @apply content-[''] absolute w-[2px] rounded-full bg-gray-900
+    left-[6px] top-0 h-full
+    ;
+}
+
+table thead th {
+    @apply text-left;
+}
+
+table.recent-activity-table thead tr th,
+table.recent-activity-table tbody tr td {
+    @apply p-2;
+}
+
+table.recent-activity-table tbody tr {
+    @apply hover:bg-warning/10;
+}
+
+.setup-title {
+    @apply text-center text-2xl font-semibold text-secondary mb-2 p-1;
+}
+
+.parrallelogram {
+    clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
+}
+
+.parrallelogram-r {
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+}
+.parrallelogram-l {
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+span, h1, h2, p, i, td, th, button, a, img, label {
+    @apply select-none;
+}
+
+.card {
+    @apply bg-white rounded-md p-5;
+}
+
+.card-title {
+    @apply mb-3 text-sm text-secondary;
+}
+
+.btn {
+    @apply hover:saturate-150 focus:ring focus:ring-warning/30 active:saturate-200 rounded
+    px-3 py-2 flex items-center gap-2 active:scale-95 transition-all ease-linear duration-100
+    disabled:opacity-60 disabled:hover:saturate-0 disabled:active:scale-100 disabled:cursor-not-allowed;
+}
+
+.btn .icon {
+    @apply w-5
+    
+}
+
+.btn-sm {
+    @apply text-sm;
+}
+.btn-sm .icon {
+    @apply w-4;
+}
+
+.btn-gold {
+    @apply bg-gold text-white;
+}
+.btn-gold-outline {
+    @apply border border-gold text-gold hover:bg-gold hover:text-white;
+}
+.btn-orange {
+    @apply bg-orange text-white;
+}
+.btn-orange-outline {
+    @apply border border-orange text-orange hover:bg-orange hover:text-white;
+}
+
+.btn-warning {
+    @apply bg-warning text-white;
+}
+.btn-warning-outline {
+    @apply border border-warning text-warning hover:bg-warning hover:text-white;
+}
+
+.btn-dark {
+    @apply bg-dark text-white;
+}
+.btn-dark-outline {
+    @apply border border-dark text-dark hover:bg-dark hover:text-white;
+}
+
+.btn-secondary {
+    @apply bg-secondary text-white;
+}
+.btn-secondary-outline {
+    @apply border border-secondary text-secondary hover:bg-secondary hover:text-white;
+}
+
+.btn-gray {
+    @apply bg-gray-200 text-black focus:ring-gray-50 hover:bg-gray-300;
+}
+
+.form-group {
+    @apply flex flex-col w-full;
+}
+
+.form-group input:not([type="checkbox"]), .form-group select {
+    @apply px-2 p-1 text-sm border border-light rounded text-dark w-full font-normal;
+}
+
+.form-group label {
+    font-size: 12px;
+    @apply text-dark font-semibold;
+}
+
+.form-group span {
+    font-size: 10px;
+    @apply text-gray-400;
+}
+
+.table-more-details {
+    font-size: 0.799rem;
+}
+
+.table-more-details li > span:nth-child(1) {
+    @apply font-semibold;
+}
+
+span.paid {
+    @apply text-green-600;
+}
+
+span.nonpaid {
+    @apply text-yellow-600;
+}
+
+.top-bar-menu {
+    -webkit-app-region: drag;
+    @apply bg-dark flex items-center justify-between w-full;
+}
+
+.top-bar-menu .controls button {
+    -webkit-app-region: no-drag;
+    @apply p-1 px-3 hover:bg-indigo-800 text-gray-500 hover:text-white;
 }

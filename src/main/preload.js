@@ -25,6 +25,12 @@ const api = {
     myPing() {
       ipcRenderer.send('ipc-example', 'ping');
     },
+    send(channel, data) {
+      return ipcRenderer.send(channel, data);
+    },
+    sendSync(channel, data) {
+      return ipcRenderer.sendSync(channel, data);
+    },
     on(channel, func) {
       const validChannels = ['ipc-example'];
       if (validChannels.includes(channel)) {
